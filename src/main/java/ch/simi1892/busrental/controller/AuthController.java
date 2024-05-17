@@ -1,9 +1,9 @@
 package ch.simi1892.busrental.controller;
 
-import ch.simi1892.busrental.dto.JwtDto;
-import ch.simi1892.busrental.dto.LoginDto;
-import ch.simi1892.busrental.dto.UserDto;
-import ch.simi1892.busrental.dto.UserRegistrationDto;
+import ch.simi1892.busrental.dto.auth.JwtDto;
+import ch.simi1892.busrental.dto.auth.LoginDto;
+import ch.simi1892.busrental.dto.auth.UserDto;
+import ch.simi1892.busrental.dto.auth.UserRegistrationDto;
 import ch.simi1892.busrental.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

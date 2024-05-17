@@ -207,6 +207,8 @@ insert into t_user (id, first_name, last_name, email, password, address_id, is_a
 insert into t_user (id, first_name, last_name, email, password, address_id, is_active, create_date, user_role) values (100, 'a', 'a', 'a@a.com', '$2a$10$ATC15vERlw2rRay.eUiT6eL8nNbAc0PYHoaUTMFWWNmfK.3hIr5Eq', 100, false, '2023-06-13', 'CUSTOMER');
 -- todo: use bcrypted password instead of some seed
 
+ALTER TABLE T_USER ALTER COLUMN id RESTART WITH 2000;
+
 ---------------------------------
 -- BUS --
 ---------------------------------

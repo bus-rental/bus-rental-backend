@@ -1,14 +1,16 @@
 package ch.simi1892.busrental.service;
 
 import ch.simi1892.busrental.config.auth.TokenProvider;
-import ch.simi1892.busrental.dto.LoginDto;
-import ch.simi1892.busrental.dto.UserDto;
-import ch.simi1892.busrental.dto.UserRegistrationDto;
+import ch.simi1892.busrental.dto.auth.LoginDto;
+import ch.simi1892.busrental.dto.auth.UserDto;
+import ch.simi1892.busrental.dto.auth.UserRegistrationDto;
 import ch.simi1892.busrental.entity.UserDbo;
 import ch.simi1892.busrental.exception.EmailAlreadyInUseException;
 import ch.simi1892.busrental.exception.InvalidEmailException;
 import ch.simi1892.busrental.mapper.UserMapper;
 import ch.simi1892.busrental.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +26,8 @@ import java.util.regex.Pattern;
 
 @Service
 public class AuthService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
+
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
 
     private final UserRepository userRepository;
@@ -43,6 +47,7 @@ public class AuthService {
             UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
             Authentication authUser = authenticationManager.authenticate(usernamePassword);
             UserDbo user = (UserDbo) authUser.getPrincipal();
+            LOGGER.debug("User '{}' logged in", user.getUsername());
             return tokenService.generateAccessToken(new User(user.getUsername(), user.getPassword(), user.getAuthorities()));
         } catch (BadCredentialsException ex) {
             throw new IllegalArgumentException("Invalid credentials");
@@ -57,10 +62,8 @@ public class AuthService {
             throw new EmailAlreadyInUseException("Email already exists");
         });
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
-        UserDbo newUser = UserMapper.toDbo(dto);
-        newUser.setPassword(encryptedPassword);
-        newUser.setActive(true);
+        UserDbo newUser = createDbo(dto);
+        LOGGER.debug("Create user '{}' with id: {}", newUser.getUsername(), newUser.getId());
         UserDbo createdUser = userRepository.save(newUser);
         return UserMapper.toDto(createdUser);
     }
@@ -78,5 +81,14 @@ public class AuthService {
         if (!password.equals(passwordConfirmation)) {
             throw new IllegalArgumentException("Password and confirmation do not match.");
         }
+    }
+
+    private UserDbo createDbo(UserRegistrationDto dto) {
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
+        UserDbo newUser = UserMapper.toDbo(dto);
+        newUser.setPassword(encryptedPassword);
+        newUser.setActive(true);
+        newUser.setUserRole(UserDbo.UserRole.CUSTOMER);
+        return newUser;
     }
 }
