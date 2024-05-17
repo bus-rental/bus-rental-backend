@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +37,7 @@ public class UserDbo extends BaseDbo implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "address_id")
+    @Cascade(CascadeType.ALL)
     private AddressDbo address;
 
     @Column(nullable = false)

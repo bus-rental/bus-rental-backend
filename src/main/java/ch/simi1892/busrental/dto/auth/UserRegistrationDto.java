@@ -1,4 +1,4 @@
-package ch.simi1892.busrental.dto;
+package ch.simi1892.busrental.dto.auth;
 
 public record UserRegistrationDto(
         String firstName,

@@ -1,14 +1,13 @@
 package ch.simi1892.busrental.service;
 
 import ch.simi1892.busrental.config.auth.TokenProvider;
-import ch.simi1892.busrental.dto.LoginDto;
-import ch.simi1892.busrental.dto.UserDto;
-import ch.simi1892.busrental.dto.UserRegistrationDto;
+import ch.simi1892.busrental.dto.auth.LoginDto;
+import ch.simi1892.busrental.dto.auth.UserDto;
+import ch.simi1892.busrental.dto.auth.UserRegistrationDto;
 import ch.simi1892.busrental.entity.AddressDbo;
 import ch.simi1892.busrental.entity.UserDbo;
 import ch.simi1892.busrental.exception.EmailAlreadyInUseException;
 import ch.simi1892.busrental.exception.InvalidEmailException;
-import ch.simi1892.busrental.mapper.UserMapper;
 import ch.simi1892.busrental.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

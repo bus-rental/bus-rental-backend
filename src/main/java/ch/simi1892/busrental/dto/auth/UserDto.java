@@ -1,4 +1,4 @@
-package ch.simi1892.busrental.dto;
+package ch.simi1892.busrental.dto.auth;
 
 import ch.simi1892.busrental.entity.UserDbo;
 

@@ -1,7 +1,7 @@
 package ch.simi1892.busrental.mapper;
 
-import ch.simi1892.busrental.dto.UserDto;
-import ch.simi1892.busrental.dto.UserRegistrationDto;
+import ch.simi1892.busrental.dto.auth.UserDto;
+import ch.simi1892.busrental.dto.auth.UserRegistrationDto;
 import ch.simi1892.busrental.entity.AddressDbo;
 import ch.simi1892.busrental.entity.UserDbo;
 import org.junit.jupiter.api.Assertions;
