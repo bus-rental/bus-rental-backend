@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Bus extends BaseEntity {
+public class BusDbo extends BaseEntity {
     private String name;
 }

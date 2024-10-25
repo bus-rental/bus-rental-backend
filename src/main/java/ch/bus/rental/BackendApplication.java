@@ -1,4 +1,4 @@
-package ch.bus.rental.backend;
+package ch.bus.rental;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
